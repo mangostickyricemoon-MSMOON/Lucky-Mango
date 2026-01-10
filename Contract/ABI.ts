@@ -1,4 +1,6 @@
-[
+// ABI.ts 
+export const abi = [
+	
 	{
 		"inputs": [
 			{
@@ -409,4 +411,5 @@
 		"stateMutability": "view",
 		"type": "function"
 	}
+
 ]

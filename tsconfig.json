@@ -8,7 +8,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "allowJs": true
+    "allowJs": true,
+    "resolveJsonModule": true,        // ✅ ให้ import .json ได้
+    "allowSyntheticDefaultImports": true, // ✅ ช่วยให้ import module ที่ไม่มี default export ได้
+    "isolatedModules": true,          // ✅ รองรับการทำงานกับ Vite/React
+    "lib": ["ESNext", "DOM"]          // ✅ ให้ใช้ API ของ browser + ESNext
   },
   "include": ["src"]
 }

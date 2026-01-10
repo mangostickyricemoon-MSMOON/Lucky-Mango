@@ -6,6 +6,8 @@ body {
   background-attachment: fixed;  /* ✅ ให้ภาพนิ่ง ไม่เลื่อนตาม scroll */
   background-color: #0a0300; /* สีเหลืองอ่อนแบบมะม่วง */
   z-index: -1; /* ✅ ไม่จำเป็นถ้าใช้กับ body */
+  margin: 0; /* ลบ margin ทั้งหมด */ 
+  padding: 0;
 }
 
 body {
@@ -13,17 +15,13 @@ body {
 }
 
 .container {
-  padding: 24px;
-  max-width: 480px;
-  margin: 0 auto;
+  width: 100%;              /* ✅ กว้างเต็มจอ */
+  max-width: 1200px;        /* ✅ กันไม่ให้ใหญ่เกิน (desktop) */
+  margin: 0 auto;           /* ✅ จัดให้อยู่ตรงกลาง */
+  padding: clamp(16px, 3vw, 32px); /* ✅ padding auto ตามจอ */
+  box-sizing: border-box;   /* ✅ รวม padding ใน width */
 }
 
-
-.container {
-  padding: 24px;
-  max-width: 480px;
-  margin: 0 auto;
-}
 
 /* ✅ ใช้ชื่อ logo-header ให้ตรง JSX */
 .logo-header {
@@ -31,16 +29,7 @@ body {
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
-}
-
-/* ✅ กรณีมี wallet-status → จัดแบบ space-between */
-.logo-header:has(.wallet-status) {
-  justify-content: space-between;
-}
-
-/* ✅ กรณีไม่มี wallet-status → จัดแบบ center */
-.logo-header:not(:has(.wallet-status)) {
-  justify-content: center;
+  justify-content: center; /* ✅ จัดกลางเสมอ */
 }
 
 /* ✅ โลโก้ */
@@ -54,6 +43,8 @@ body {
 .wallet-status {
   display: flex;
   align-items: center;
+  justify-content: center;  /* ✅ จัดข้อความให้อยู่กลาง */
+  
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(4px);
   border-radius: 12px;
@@ -95,23 +86,23 @@ body {
 }
 
 .announcement-modal-content {
-  background: #fff8e1;
+  background: #c8e7f5;
   padding: 2rem;
   border-radius: 16px;
   max-width: 400px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
 .announcement-title {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   color: #333;
 }
 
 .announcement-message {
-  font-size: 1rem;
+  font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: #ff9800;
   font-weight: bold;
@@ -123,7 +114,7 @@ body {
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
@@ -137,54 +128,102 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 999;
 }
 
 /* ✅ Admin Modal Content */
 .admin-modal-content {
-  background-color: #fff8e1;
-  border: 4px solid #8d6e63;
-  border-radius: 12px;
+  background-color: #fffde7; /* เหลืองอ่อน */
+  border: 4px solid #388e3c; /* เขียวเข้ม */
+  border-radius: 16px;
   padding: 24px 32px;
-  max-width: 400px;
+  max-width: 420px;
   width: 90%;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
-/* ✅ Title */
+/* ✅ Title & Message */
 .admin-modal-title {
-  font-size: 24px;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #5d4037;
-  margin-bottom: 12px;
+  color: #2e7d32; /* เขียวสด */
+  margin-bottom: 8px;
 }
 
-/* ✅ Message */
 .admin-modal-message {
-  font-size: 16px;
-  color: #4e342e;
-  margin-bottom: 24px;
+  font-size: 1rem;
+  color: #fbc02d; /* เหลืองสด */
+  margin-bottom: 16px;
+}
+
+/* ✅ Input Field */
+.admin-modal-content input[type="number"] {
+  width: 80%;
+  padding: 10px 14px;
+  margin: 10px 0;
+  border: 2px solid #388e3c;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.admin-modal-content input[type="number"]:focus {
+  border-color: #fbc02d;
+  box-shadow: 0 0 6px #fbc02d;
+}
+
+/* ✅ Buttons */
+.admin-modal-content button {
+  background-color: #fdd835; /* เหลืองสด */
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  margin: 8px 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2e7d32;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.admin-modal-content button:hover {
+  background-color: #fbc02d;
+  transform: scale(1.05);
 }
 
 /* ✅ Close Button */
 .admin-modal-close-btn {
-  background-color: #a1887f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  background-color: #e53935;
+  color: #fff;
 }
 
 .admin-modal-close-btn:hover {
-  background-color: #8d6e63;
+  background-color: #c62828;
+}
+
+/* ✅ Pool Balance Text */
+.pool-balance {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2e7d32; /* เขียวสด */
+  background-color: #fffde7; /* เหลืองอ่อน */
+  border: 2px solid #fbc02d; /* เหลืองสด */
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin: 12px 0;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.pool-balance:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(46, 125, 50, 0.3);
 }
 
 
@@ -209,6 +248,38 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
 }
+
+/* ✅ ปุ่ม toggle เสียง */
+.sound-toggle-btn {
+  width: 25px;
+  height: 25px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;   /* ทำให้มี animation เวลาเปลี่ยน */
+}
+
+/* ✅ hover effect */
+.sound-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* ✅ responsive สำหรับจอเล็ก */
+@media (max-width: 400px) {
+  .sound-toggle-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 0.5rem;
+    border-width: 1px;
+  }
+}
+
+
 
 /*___________________________________________________________ */
 
@@ -237,9 +308,9 @@ body {
   width: 100px;
   height: 100px;
   padding: 4px;
-  border: 4px solid #ffb300;
+  border: 4px solid #050505;
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.6); /* ✅ โปร่งแสง */
+  background-color: rgba(13, 13, 13, 0.6); /* ✅ โปร่งแสง */
   backdrop-filter: blur(4px);                /* ✅ ฟุ้งแบบแก้ว */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, background-color 0.3s ease;
@@ -294,6 +365,59 @@ body {
   height: auto;
   margin-bottom: 16px;
 }
+
+/* ✅ Overlay ปุ่ม OK*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7); /* พื้นหลังโปร่งดำ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* อยู่บนสุด */
+}
+
+/* ✅ กล่อง Modal ปุ่ม OK*/
+.modal-content {
+  background: #1e1e1e; /* พื้นหลังเข้ม */
+  color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* ✅ ปุ่ม OK */
+.ok-btn {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background: #4caf50; /* เขียว */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ok-btn:hover,
+.ok-btn:active {
+  background: #45a049; /* เขียวเข้มขึ้น */
+  transform: scale(1.05);
+}
+
+/* ✅ Animation ปุ่ม OK*/
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 
 @keyframes bounceReveal {
   0% {
@@ -367,6 +491,9 @@ body {
 
 
 
+
+
+
 /*___________________________________________________________ */
 
 .button-group {
@@ -390,10 +517,10 @@ body {
 
 /* ✅ Buy Ticket สีเขียวก่อนซื้อ */
 .buy-ticket-btn.active {
-  background-color: #4caf50;
+  background-color: #11016b;
   color: #fff;
   box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
-  border: 4px solid #388b3c;
+  border: 4px solid #261296;
   border-radius: 24px;
 }
 
@@ -454,13 +581,13 @@ body {
 }
 
 .ticket-modal-icon {
-  width: 64px;
+  width: 108px;
   height: auto;
   margin-bottom: 12px;
 }
 
 .ticket-modal-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #333;
@@ -469,22 +596,23 @@ body {
 .ticket-modal-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 1rem 0;
+  margin: 0 0 2rem 0;
 }
 
 .ticket-modal-item {
-  margin-bottom: 12px;
-  font-size: 1rem;
+  margin-bottom: 24px;
+  font-size: 1.5rem;
   color: #333;
 }
 
 .ticket-modal-buy-btn {
-  margin-left: 8px;
-  padding: 6px 12px;
+  font-size: 1.5rem;
+  margin-left: 12px;
+  padding: 12px 18px;
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
@@ -495,9 +623,10 @@ body {
 }
 
 .ticket-modal-close-btn {
+  font-size: 1.5rem;
   margin-top: 12px;
   padding: 6px 16px;
-  background-color: #bdbdbd;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 6px;
@@ -507,7 +636,7 @@ body {
 }
 
 .ticket-modal-close-btn:hover {
-  background-color: #9e9e9e;
+  background-color: #4caf50;
 }
 
 /*___________________________________________________________ */
@@ -529,17 +658,17 @@ body {
   background: #fff8e1;
   padding: 2rem;
   border-radius: 16px;
-  max-width: 420px;
+  max-width: 480px;
   width: 90%;
-  text-align: left;
+  text-align: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   position: relative;
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #333;
 }
 
 .howto-modal-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
   text-align: center;
@@ -549,11 +678,14 @@ body {
 .howto-modal-text {
   margin-bottom: 0.75rem;
   line-height: 1.5;
+  font-weight: bold;
 }
 
 .howto-modal-list {
   margin-bottom: 1rem;
   padding-left: 1.2rem;
+  line-height: 1.5;
+  list-style: none; /* ✅ เอา bullet ออก */
 }
 
 .howto-modal-list li {
@@ -564,17 +696,18 @@ body {
   display: block;
   margin: 0 auto;
   padding: 8px 16px;
-  background-color: #bdbdbd;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 6px;
+  font-size: 1.5rem;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
 .howto-modal-close-btn:hover {
-  background-color: #9e9e9e;
+  background-color: #4caf50;
 }
 
 /*___________________________________________________________ */
@@ -603,25 +736,25 @@ body {
 }
 
 .item-modal-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   color: #333;
 }
 
 .item-modal-message {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
   color: #ff9800;
 }
 
 .item-modal-close-btn {
-  background-color: #bdbdbd;
+  background-color: #4caf50;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
@@ -630,26 +763,30 @@ body {
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
-  width: 100%;
-  background-image: url('/src/assets/woodTexture.png'); /* ✅ ปรับ path ตามจริง */
+  left: 50%;                     /* ✅ เริ่มจากกึ่งกลาง */
+  transform: translateX(-50%);   /* ✅ เลื่อนกลับครึ่งหนึ่ง */
+  width: 100%;                    /* ✅ กว้าง 100% ของ viewport */
+  max-width: 1200px;             /* ✅ กันไม่ให้ใหญ่เกิน desktop */
+  background-image: url('/src/assets/woodTexture.png');
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0px 0;
-  border-top: 8px solid #ffb300;
+  padding: 0;
+  border-top: 8px solid #26ade2;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
   z-index: 100;
+  border-radius: 12px;           /* ✅ เพิ่มมุมโค้งถ้าอยากให้ลอยกลางจอ */
 }
+
 
 .nav-btn {
   background: none;
   border: none;
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: #f3efef;
   cursor: pointer;
   transition: color 0.3s ease;
   gap: 16px;
@@ -694,7 +831,7 @@ body {
 }
 
 .wallet-modal-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
   color: #333;
@@ -702,7 +839,7 @@ body {
 
 .wallet-status-box {
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
 }
@@ -716,7 +853,7 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 /* ✅ ปุ่ม Connect สีเขียว */
@@ -733,65 +870,48 @@ body {
 
 /* ✅ ปุ่ม Close สีเทา */
 .wallet-btn.close {
-  background-color: #bdbdbd;
+  background-color: #4caf50;
   color: white;
-}
+} 
 
 /*___________________________________________________________ */
 
 
-@media (max-width: 480px) {
- .mango-btn {
-    width: 80px;
-    height: 80px;
-    border-width: 4px;
-  }
 
-  .mango-img {
-    max-width: 64px;
+/* ✅ Breakpoints */
+@media screen and (max-width: 480px) and (orientation: portrait){
+  .container {
+    zoom: 0.60;
   }
-
-  .mango-row {
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-
-  .mango-grid {
-    gap: 8px;
-  }
-
-  .start-btn {
-    font-size: 20px;
-    padding: 6px 12px;
-  }
-
-  .status-bar {
-    font-size: 20px;
-    padding: 6px 10px;
-  }
-
-  .logo {
-    width: 160px;
-  }
-
-  .nav-btn {
-    font-size: 12px;
-  }
-
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    z-index: 100;
-    padding: 8px 0;
-  }
-
-    .nav-icon {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-  }
-
+  
 }
+
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  .container {
+    zoom: 0.30;
+  }
+  
+}
+
+
+@media screen and (min-width: 1025px) and (orientation: portrait) { 
+  .container {
+    zoom: 0.9;
+  }
+  
+}
+
+@media screen and (min-width: 1025px) and (orientation: landscape) { 
+  .container {
+    zoom: 0.8;
+  }
+  
+}
+
+
+
+
+
+
+
+   
